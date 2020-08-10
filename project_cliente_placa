@@ -1,0 +1,240 @@
+import os
+histrorial_cliente={}
+mantenimieto={'preventivo':[('BLOQUE DE CILINDROS',73,79),('PIPA RESONANTE',53,89),('INTERRUPTOR DE ENCENDIDO',63,99)],
+'correctivo':[('TRANSMISION CORREA',43,79),('PIÑÓN',23,79),('DEPOSITO DE EXPANSION',83,79)]}
+
+def ingreso():
+    while True:
+        os.system('cls')
+        try:
+            ingreso=int(input("QUIERE AGREGAR PARTES A LA TABLA DE MANTENIMIENTO SI ES 1 Y NO ES 2="))
+        except:
+            print()
+            continue
+        if ingreso==1:
+            menu_mantenimiento()
+        if ingreso==2:
+            menu_principal()
+
+
+
+def menu_mantenimiento():
+    os.system('cls')
+    print("")
+    print("         QUE TIPO DE MANTENIMIENTO QUIERE?")
+    print("")
+    print("             1: PREVENTIVO")
+    print("             2: CORRECTIVO")
+    print("             3: SALIR")
+    print("")
+    while True:
+        try:
+            eleccion_mant=int(input("INGRESE EL NÚMERO DE LA OPCIÓN= "))
+        except:
+            print()
+            continue
+        opcion_manteniminto(eleccion_mant)
+    
+
+
+def opcion_manteniminto(eleccion_mant):
+    if eleccion_mant ==1:
+        registro_mantenimiento('preventivo','PREVENTIVO')
+    if eleccion_mant ==2:
+        registro_mantenimiento('correctivo','CORRECTIVO')
+    if eleccion_mant ==3:
+        menu_principal()
+
+
+
+def registro_mantenimiento(clave,tx):
+    os.system('cls')
+    print()
+    print(tx)
+    print()
+    parte_auto_mant=str(input("INGRESE LA PARTE DEL VEHÍCULO= "))
+    parte_auto_mant=parte_auto_mant.upper()
+    while True:
+        os.system('cls')
+        print()
+        print(tx)
+        print()
+        print(f"INGRESE LA PARTE DEL VEHÍCULO= {parte_auto_mant}")
+        try:
+            dias_mant=int(input("INGRESE LOS DÍAS= "))
+            kilometro_mant=int(input("INGRESE EL RECORRIDO DESDE EL ÚLTIMO KILOMETRAJE= "))
+        except:
+            print("INGRESE UN NUMERO MAYOR A 0")
+            continue
+        remplazar_repeti_mante(parte_auto_mant,clave)
+        mantenimieto[clave].append((parte_auto_mant,dias_mant,kilometro_mant))
+        menu_mantenimiento()
+
+
+
+def remplazar_repeti_mante(parte_aut_mant,clave):
+    for i in range(len(mantenimieto[clave])):
+        if parte_aut_mant in mantenimieto[clave][i]:
+           mantenimieto[clave].pop(i)
+           mantenimieto[clave].append('#')
+           mantenimieto[clave].remove('#')
+         
+       
+
+def menu_principal():
+    while True:
+        print("")
+        print("             MANTENIMIENTO DE VEHÍCULOS")
+        print("")
+        print("       1: CARGAR INFORMACIÓN DEL HISTORIAL DE VEHÍCULOS DESDE UN ARCHIVO")
+        print("       2: MANTENIMIENTO POR PLACA")
+        print("       3: AGREGAR A TABLA DE MANTENIMIENTO")
+        print("       4: RECOMENDACIÓN POR PARTES")
+        print("       5: SALIR")
+        print("")
+        try:
+            opcion_menu_prin=int(input("INGRESE EL NÚMERO DE LA OPCIÓN= "))
+        except:
+            continue
+        eleccion_menu_principal(opcion_menu_prin,histrorial_cliente)
+
+
+
+def eleccion_menu_principal(opcion_menu_prin,historial_cli):
+    if opcion_menu_prin==1:
+        crear_cliente(historial_cli)
+    if opcion_menu_prin==2:
+        buscar('placa','MANTENIMIENTO POR PLACA')
+    if opcion_menu_prin==3:
+        menu_mantenimiento()
+    if opcion_menu_prin==4:
+        buscar('parte de vehiculo','RECOMENDACIÓN POR PARTES')
+    if opcion_menu_prin==5:
+        os.system('cls')
+        print("SALIO")
+        print(mantenimieto)
+        print(histrorial_cliente)
+        exit()
+
+
+
+def crear_cliente(historial_cli):
+    os.system('cls')
+    print()
+    print("CARGANDO INFORMACIÓN DEL HISTORIAL")
+    print()
+    cliente={'propietario':str,'registro':[]}
+    placa=str(input("INGRESE LA PLACA= "))
+    placa=placa.upper()
+    placa_repetida(placa)
+    proietario=str(input("INGRESE SU NOMBRE Y APELLIDO= "))
+    proietario=proietario.upper()
+    cliente['propietario']=proietario
+    historial_cli[placa]=cliente
+    registro_cliente(historial_cli,placa)
+
+
+
+def placa_repetida(placa_cli):
+    if placa_cli in histrorial_cliente:
+        print('ESTA PLACA YA EXISTE!!')
+        crear_cliente(histrorial_cliente)
+
+
+
+def registro_cliente(historial_cli,placa):
+    parte_auto_cli=str(input("INGRESE LA PARTE DEL VEHÍCULO= "))
+    parte_auto_cli=parte_auto_cli.upper()
+    while True:
+        os.system('cls')
+        print()
+        print("CARGANDO INFORMACIÓN DEL HISTORIAL")
+        print()
+        print(f"INGRESE LA PLACA= {placa}")
+        print(f"INGRESE SU NOMBRE Y APELLIDO= {histrorial_cliente[placa]['propietario']}")
+        print(f"INGRESE LA PARTE DEL VEHÍCULO= {parte_auto_cli}")
+        try:
+            dias_cli=int(input("INGRESE LOS DÍAS= "))
+            kilometro_cli=int(input("INGRESE EL RECORRIDO DESDE EL ÚLTIMO KILOMETRAJE= "))
+        except:
+            print('INGRESE UN NUMERO MAYOR A 0')
+            continue
+        remplazar_repetic_histocli(placa,parte_auto_cli)
+        historial_cli[placa]['registro'].append((parte_auto_cli,dias_cli,kilometro_cli))
+        seguir_agregando_historial(historial_cli,placa)
+
+
+
+def remplazar_repetic_histocli(placa,parte_cli):
+    for i in range(len(histrorial_cliente[placa]['registro'])):
+        if parte_cli in histrorial_cliente[placa]['registro'][i][0]:
+           histrorial_cliente[placa]['registro'].pop(i)
+           histrorial_cliente[placa]['registro'].append('#')
+           histrorial_cliente[placa]['registro'].remove('#')
+
+
+
+def seguir_agregando_historial(historial_cli,placa):
+    print()
+    while True:
+        try:
+            agregar_registr=int(input("DESEA AGREGAR UNA PARTE MAS 1 ES SI Y 2 ES NO="))
+        except:
+            print()
+            continue
+        if agregar_registr ==1:
+            registro_cliente(historial_cli,placa)
+        if agregar_registr ==2:
+            menu_principal()
+
+
+
+def buscar(palabra,tx):
+    os.system('cls')
+    print(f"{tx}")
+    parte_or_placa = str(input(f"INGRESE LA {palabra}: "))
+    parte_or_placa = parte_or_placa.upper()
+    if palabra==str("placa"):
+        buscar_placa(parte_or_placa)
+    if palabra==str("parte de vehiculo"):
+        buscar_parte(parte_or_placa)
+    menu_principal()
+
+
+
+def buscar_placa(buscar_placa):
+    if buscar_placa in histrorial_cliente:
+        for regist,pre,cor in [(regist,pre,cor)for regist in range(len(histrorial_cliente[buscar_placa]['registro']))for pre in range(len(mantenimieto['preventivo']))for cor in range(len(mantenimieto['correctivo']))]:
+            consola_placa=str(f"  {buscar_placa}--->{histrorial_cliente[buscar_placa]['registro'][regist][0]}")
+            if (histrorial_cliente[buscar_placa]['registro'][regist][0] in mantenimieto['preventivo'][pre][0]) or (histrorial_cliente[buscar_placa]['registro'][regist][0] in mantenimieto['correctivo'][cor][0]):
+                    comparar_km(buscar_placa,consola_placa,regist,pre,cor)
+    else:
+        print("NO EXISTE LA PLACA!!")     
+     
+            
+
+def buscar_parte(parte_vehiculo):
+    for plac0 in histrorial_cliente:
+        for regist0 in range(len(histrorial_cliente[plac0]['registro'])):
+            if parte_vehiculo in histrorial_cliente[plac0]['registro'][regist0]:
+                consola_parte=str(f"{parte_vehiculo}--->{plac0}")
+                for pre,cor in [(pre,cor)for pre in range(len(mantenimieto['preventivo']))for cor in range(len(mantenimieto['correctivo']))]:
+                    if (histrorial_cliente[plac0]['registro'][regist0][0] in mantenimieto['preventivo'][pre][0]) or (histrorial_cliente[plac0]['registro'][regist0][0] in mantenimieto['correctivo'][cor][0]):
+                        comparar_km(plac0,consola_parte,regist0,pre,cor)
+                
+
+
+def comparar_km(parte_or_placa,consola,regist,pre,cor):
+    if pre==pre and cor==pre:
+        for _l in range(1):
+            if (histrorial_cliente[parte_or_placa]['registro'][regist][2] > mantenimieto['preventivo'][pre][2]) and (histrorial_cliente[parte_or_placa]['registro'][regist][2] >= mantenimieto['correctivo'][cor][2]):
+                print(f"{consola}---->CORRECTIVO")
+            elif (histrorial_cliente[parte_or_placa]['registro'][regist][2] >= mantenimieto['preventivo'][pre][2]) and (histrorial_cliente[parte_or_placa]['registro'][regist][2] < mantenimieto['correctivo'][cor][2]):
+                print(f"{consola}---->PREVENTIVO")
+            else:
+                print(f"{consola}---->NINGUNA")
+
+
+
+while True:
+    ingreso()
