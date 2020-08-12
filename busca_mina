@@ -1,0 +1,50 @@
+import random2
+import os
+mina=[[1,0,1,0,0,0],[0,1,0,0,1,0],[1,0,1,0,0,1],[0,1,0,1,0,0],[1,0,1,0,1,0],[0,1,0,0,1,0]]
+visual=[['#','#','#','#','#','#'],['#','#','#','#','#','#'],['#','#','#','#','#','#'],
+        ['#','#','#','#','#','#'],['#','#','#','#','#','#'],['#','#','#','#','#','#']]
+
+def revolver(array):
+    for i in range(len(array)):
+        random2.shuffle(array[i])
+
+def mina_anonima():
+    os.system('cls')
+    print("                         BUSCA MINA")
+    print("")
+    print(f"                   C0  C1   C2   C3   C4   C5")
+    for i in range(len(visual)):
+        print (f"               F{i}{visual[i][:]}")
+        print("")
+
+def encontraste_mina():
+    os.system('cls')
+    print("                         BUSCA MINA")
+    print(f"                 Mina encontrada en f{fila} c{columna}!!")
+    mina[fila][columna]=str('@')
+    print("")
+    print(f"                  C0 C1 C2 C3 C4 C5")
+    for i in range(len(mina)):
+        print (f"               F{i}{mina[i][:]}")
+        print("")
+
+revolver(mina)
+while True:
+    mina_anonima()
+    try:
+        fila=int(input(f"ingrese la fila <<0 hasta 5>> "))
+        columna=int(input("ingrese la columa del <<0 hata 5>>= "))
+    except:
+        print("")
+        continue
+    buscar=mina[fila][columna]
+    if buscar==1:
+        encontraste_mina()
+        break
+    else:
+        visual[fila][columna]=0
+        
+
+#from Isaac AntCer
+
+
