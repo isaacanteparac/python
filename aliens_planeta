@@ -1,0 +1,117 @@
+import random2
+from random2 import sample
+import os
+
+nave=[]
+planeta=[]
+intentos_totales=0
+acertados_nave=0
+acertados_planeta=0
+gano="NO HA COMENZADO EL JUEGO"
+os.system('cls')
+print("       <<DEFENSA DIGITAL CONTRA ATAQUE ALIENIGENA>>")
+def  menu():
+    print("")
+    print("          \t1. Activar defensas.")
+    print("          \t2. Empezar combate.")
+    print("          \t3. Mostrar resumen Final")
+    print("          \t4. Salir")
+    print("")
+    
+while True:
+    menu()
+    try: 
+        opcion= int(input("           Ingrese el numero de la opcion= "))
+    except:
+        os.system('cls')
+        print(" ")
+        continue
+    if (opcion==1):
+        os.system('cls')
+        nave=random2.sample(range(3,13),10)
+        planeta=random2.sample(range(2,19),12)
+        print("")
+        print("                  <<DEFENSAS ACTIVADAS>>")
+        print(" ")
+        print("          Se activaron las defensas del planeta")
+        print(f"       {planeta}")
+        print(" ")
+        print(f"          Se activaron las defensas alienigenas")
+        print(f"            {nave}")
+        print(" ")
+    if (opcion==2):
+        if (len(planeta)==0 and len(nave)==0):
+            print("")
+            print("!!TIENE QUE ACTIVAR LAS DEFENSAS PARA EMPEZAR EL COMBATE!!")
+            print("")    
+        elif (acertados_nave==9 or acertados_planeta==7 or  intentos_totales==20):#hubo un combate
+            print("")
+            print("                <<YA EXISTE UN GANADOR>>")
+            print("") 
+        else:
+            print("")
+            print("                 <<EMPEZO EL COMBATE>>")
+            print("")
+            print("")
+            while (intentos_totales<20):
+                tecla_disparo=str(input(f"      Ingrese <[d]> para disparar {intentos_totales}/20 intentos= "))
+                tecla_disparo=tecla_disparo.lower()
+                os.system('cls')
+                if tecla_disparo== str("d"):
+                    intentos_totales+=1
+                    disparos_planeta=random2.sample(range(3,13),1)
+                    disparos_nave=random2.sample(range(2,19),1)
+                    for i in range (len(planeta)):
+                        if (planeta[i] in disparos_nave):
+                            acertados_nave+=1
+                            planeta[i]=0
+                    for i in range (len(nave)):
+                        if (nave[i] in disparos_planeta):
+                            acertados_planeta+=1
+                            nave[i]=0
+                    print("                 <<COMBATE EN PROCESO>>") 
+                    print("")
+                    print("")
+                    print(f"                Disparo alienigena>> {disparos_nave}")        
+                    print(f"                   Defensa alienigena")
+                    print(f"           {nave} ")
+                    print("")
+                    print("")
+                    print(f"                Disparo del planeta>> {disparos_planeta}")        
+                    print(f"                   Defensa del planeta")
+                    print(f"       {planeta} ")
+                    print("")
+                    print("")
+                    
+                    if (intentos_totales==20):
+                        gano=str("       TREGUA DIPLOMATICA")
+                        break
+                    if (acertados_nave==9):  #12*0.75
+                        gano=str("       GANO ALIENIGENAS")
+                        break
+                    if (acertados_planeta==7): #10*0.75
+                        gano=str("       GANO PLANETA")         
+    if (opcion==3):     
+        defensa_disponible_nave=len(nave)-acertados_nave
+        defensa_disponible_planeta=len(planeta)-acertados_planeta
+        os.system('cls')
+        print("")
+        print("                      <<RESUMEN DEL COMBATE>>")
+        print("")
+        print(f"                     {gano}")
+        print(" ")
+        print(f"                Total de intentos>> {intentos_totales}")  
+        print(f"                Defensa disponible de nave alienigena>> {defensa_disponible_nave}")      
+        print(f"                Disparos acertados de nave alienigena>> {acertados_nave}")
+        print(f"                Defensa disponible del planeta>> {defensa_disponible_planeta}")      
+        print(f"                Disparos acertados del planeta>> {acertados_planeta}")
+        print("")
+        print("")
+        
+    if (opcion==4):
+        os.system('cls')
+        print("")
+        print("SALIO DEL JUEGO")
+        break
+
+
