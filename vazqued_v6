@@ -142,4 +142,7 @@ def Menu():
         except ValueError:
             print("\n Solo ingresar digitos.")
             continue
-Menu()
+while True:
+   Menu()
+
+#from Ana Vazquez
