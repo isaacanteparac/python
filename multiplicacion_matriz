@@ -1,0 +1,67 @@
+#MULTIPLICACION DE MAT
+resultado_ab=[]
+al=[]
+matriz_a=[]
+matriz_b=[]
+
+def nombre_matrices(nombre,tamano):
+        for i in range (tamano):
+            nombre.append([])
+            for _j in range (tamano):
+                nombre[i].append(0)
+        return nombre
+
+def agregar_matrices(name,tamano):
+        nombre = nombre_matrices(name,tamano)
+        for i in range (tamano):
+            for j in range (tamano):
+                nombre[i][j] = int(input('             Valor de [' + str(i) + '][' + str(j) + '] = '))
+        print("")
+        for k in range (tamano):
+            print (f"                    {nombre[k][:]}")
+        
+def multiplicacion(longitud,matriz_a,matriz_b):
+        for i in range(len(matriz_a)):
+            for j in range (len(matriz_b)):
+                for k in range (longitud):
+                    resultado_ab.append(matriz_a[i][k]* matriz_b[k][j])
+
+def divide_matriz(tamano):
+    fila = tamano
+    col = tamano
+    resultado_ab= [al[col*i : col*(i+1)] for i in range(fila)]
+    print("")
+    print("        << MATRIZ RESULTANTE DE ab >>")
+    print("")
+    for i in range (tamano):
+            print (f"                    {resultado_ab[i][:]}")
+    
+
+def matriz_suma(tamano):
+    x=0
+    z=tamano
+    suma=0
+    for _i in range (tamano**2):
+        for j in range (x,z,1): 
+            suma+=resultado_ab[j]
+        al.append(suma)
+        z+=tamano
+        x+=tamano
+        suma=0
+
+
+print("")
+print("           Multiplicacion de matrices")
+print("")
+longitud=int(input(">>>>Matriz cuadrada de = "))
+print("")
+print("               << MATRIZ a >>")
+print("")
+agregar_matrices(matriz_a,longitud)
+print("")
+print("               << MATRIZ b >>")
+print("")
+agregar_matrices(matriz_b,longitud)
+multiplicacion(longitud,matriz_a,matriz_b)
+matriz_suma(longitud)
+divide_matriz(longitud)
