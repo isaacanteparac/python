@@ -1,0 +1,145 @@
+
+# Proyecto Final V6  - Juan Peralta y Ana Vasquez
+# Juego de Palabras
+
+import random
+import os
+
+diccionario = {}
+almacen = {}
+intentos = {}
+jugadas = 0
+r = 0
+total = []
+
+# --- Cargar Diccionario --- 
+f = open("Diccionario.txt", "r")
+for line in f:
+    line = line.strip()
+    words = line.split(",")
+    key = int(words[0])
+    values = words[1:7]
+    diccionario[key] = values
+    # print("Key is: ", key, "Values are: ", values)
+f.close()
+
+def Play(): # Play para jugar 5 rondas
+    global r
+    global jugadas
+    jugadas += 1
+    for _i in range(5):
+        Ronda()
+    print("Tu puntaje total es: ", sum(total))
+    
+    #RESETS
+    r = 0
+    total.clear()
+    
+    Menu()
+
+def Ronda(): # 1 Ronda
+    global r
+#===--- Contar Rondas
+    r += 1
+#---Check if is in Almacen
+    while True:
+#------ Generar Palabra ------
+        numero = (random.randint(1, 36))
+        if diccionario[(numero)][0] in almacen.keys(): 
+            continue
+        else:
+            break
+    # Assign Key
+    palabra = diccionario[(numero)][0]
+    # Empezar Ronda
+    print("\n♒︎♒︎♒︎♒︎ Ronda",r,"♒︎♒︎♒︎♒︎")
+    # print("Palabra #",numero,"es", palabra)
+#------ Hint -------
+    print("Hint:",diccionario[(numero)][1])
+
+#------ Tipo de Palabra -------
+    tipo = diccionario[numero][4]
+    if tipo == '3':
+        print("(La palabra es un Adetivo)")
+    elif tipo == '2':
+        print("(La palabra es un Verbo)")
+    elif tipo == '1':
+        print("(La palabra es un Sustantivo)")   
+
+#------ Adivinar ------
+    while True:
+        guess = input("\n  »» Ingresar intento: ").lower()
+        if guess.isalpha():
+            break
+        else:
+            print("Ingresar solo palabras palabras.")
+            continue
+#---Puntaje 
+    state = False
+    almacen[palabra] = intentos[guess] = 0
+    if guess == diccionario[numero][0]:
+        almacen[palabra] = intentos[guess] = 10
+        print("✳ ----- +10 puntos ----- ✳")
+        state = True
+    if state ==False:
+        if guess[0:2] == diccionario[numero][2]:
+            print("✳ ----- +2 puntos ----- ✳")
+            almacen[palabra] = intentos[guess]= 2 
+        if guess[-3:] == diccionario[numero][3]:
+            print("✳ ----- +3 puntos ----- ✳")
+            almacen[palabra] += 3
+            intentos[guess] += 3
+
+    # Almacenar puntaje
+    pts = almacen[palabra]
+    total.append(pts)
+
+# --- Codigo para Escribir en Archivo ---
+def Statistics():
+    print("✰ --- Estadísticas --- ✰\n")
+    f = open("Almacen.txt", "r+")
+    for line in f:
+        line = line.strip("\n")
+    # if os.stat('Almacen.txt').st_size==0:
+    for k, v in intentos.items():
+        f.write(k)
+        f.write(", ")
+        f.write(str(v))
+        f.write("\n")
+    f.close()
+
+    a = open("Almacen.txt","r")
+    for line in a:
+        line = line.strip()
+        print("  -",line)
+
+def LoadInfo():
+    print("----- Cargar información -----\n")
+    for k, v in diccionario.items():
+        print(k,"-",', '.join(v[0:4]))
+
+def Menu():
+    print("\n")
+    print("--- ❀  ❀  ❀  ❀  Juego de Palabras  ❀  ❀  ❀  ❀ ---")
+    menu = ('Cargar información', 'Jugar', 'Ver estadísticas', 'Salir \n')
+    for index, menu in enumerate(menu, start=1):
+        print("~~~", index, menu)
+    while True:
+        try:
+            seleccion = int(input("\n  »» Seleccionar: "))
+            print("")
+            while (seleccion<1) or (seleccion>4):
+                print("\n Seleccionar entre Opciones del 1 y 4")
+                break
+            if seleccion == 1:
+                LoadInfo()
+            if seleccion == 2:
+                Play()
+            if seleccion == 3:
+                Statistics()
+            if seleccion == 4:
+                exit()
+        except ValueError:
+            print("\n Solo ingresar digitos.")
+            continue
+Menu()
