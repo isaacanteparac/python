@@ -1,0 +1,46 @@
+resultado=[]
+
+def crear(tamano):
+    for i in range (tamano):
+        resultado.append([])
+        for _j in range (tamano):
+            resultado[i].append(0)
+    return resultado
+
+def agregar_matriz(tamano):
+    resultado = crear(tamano)
+    for i in range (tamano):#antepara_cerezo  
+        for j in range (tamano):
+            resultado[i][j] = float(input(f'             Valor de [' + str(i) + '][' + str(j) + '] = '))
+
+def metodo_gauss(tamano):
+    for k in range (tamano-1):
+        for i in range(1, tamano-k):
+            if (resultado[k][k] != 0 ):
+                total = resultado[i+k][k] / resultado[k][k]
+                for j in range (tamano):
+                    resultado[i+k][j] = resultado[i+k][j] - (resultado[k][j]*total)
+
+def determinante(tamano):
+    deter=1
+    for i in range (tamano):
+        deter=resultado[i][i]*deter
+    print("")#antepara_cerezo    
+    print (f"       << El determinante es = {deter} >>>")
+
+
+def matriz_resul(tamano):
+    print("")
+    print("           << MATRIZ RESULTANTE >>")
+    print("")
+    for i in range (tamano):
+            print(f"              {resultado[i][:]}")
+print("")
+print("        << MATRIZ DETERMINACION >>")
+print("")
+longitud = int(input (">>>Tamaño de la matriz : "))
+print("")
+agregar_matriz(longitud)
+metodo_gauss(longitud)
+matriz_resul(longitud)
+determinante(longitud)
