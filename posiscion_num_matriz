@@ -1,0 +1,45 @@
+import os
+import random2
+matriz=[]
+numeros=[]
+def corchete(corche,matriz):
+    for _i in range(corche):
+        matriz.append([])
+
+def elementos(ele,matriz,num):
+    for _j in range(ele):
+        for i in range(ele):
+            nume=random2.randrange(0,num)
+            matriz[i].append(nume)
+    
+def consola(longitud):
+    os.system('cls')
+    print(f"    MATRIZ CUADRADA DE {longitud}x{longitud}")
+    print("")
+    for k in range (longitud):
+        print (f"       {matriz[k][:]}")
+    print("")
+
+
+def raya(longitud):
+    for i in range(3):
+        contador=0
+        i+=1
+        nums=int(input(f"ingrese un numero tiene {i}/3= "))
+        for i in range (longitud):
+            for j in range (longitud):
+                if nums==matriz[i][j]:
+                    matriz[i][j]=str("-")
+                    contador+=1
+        numeros.append(f"{nums} tiene {contador} repeats")
+        consola(longitud)
+        numeros.sort()
+        print(numeros)
+
+longitud=int(input(">>>>Matriz cuadrada de = "))
+corchete(longitud,matriz)
+elementos(longitud,matriz,1001)
+consola(longitud)
+raya(longitud)
+
+#from ISAAC ANTCER
