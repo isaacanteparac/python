@@ -1,0 +1,11 @@
+bacci=[]
+one=0
+two=1
+for i in range(10):
+    i+=1
+    one,two=two,one+two
+    bacci.append(two)
+    print(f"{bacci}")
+    
+ #from ISAAC ANTCER
+ 
