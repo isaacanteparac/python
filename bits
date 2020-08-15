@@ -1,0 +1,38 @@
+import random2
+matriz=[]
+
+def corchete(corche):
+    for _i in range(corche):
+        matriz.append([])
+
+def numero_elementos(num_ele):
+    for _j in range(num_ele):
+        for i in range(num_ele):
+            cerouno=random2.randrange(0,2)
+            matriz[i].append(cerouno)
+
+def suma(num):
+    for i in range(len(matriz)):
+        resultado=0
+        for j in range(num):
+            resultado = resultado + matriz[i][j]
+            if resultado%2==0:
+                matriz[i][num]=str('<0>')
+            else:
+                matriz[i][num]=str('<1>')
+    consola()
+
+def consola():
+    print("")
+    print("              BITS")                
+    print("")
+    for k in range (7):
+        print (f"    {matriz[k][:]}")            
+
+
+
+corchete(8)
+numero_elementos(8)
+suma(7)
+
+#form ISAAC ANTCER
