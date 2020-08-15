@@ -1,0 +1,23 @@
+i=0
+total=10
+while i<5:
+    if (total>3):
+        one=int(input("ingrese el 1er numero = "))
+        two=int(input("ingrese el 2do numero = "))
+        three=int(input("ingrese el 3ro numero = "))
+        if (two==three==one):
+            total=total+20-3
+            print("GANO 20 coins")
+            i=i+1   
+        elif (one==two or two==three or one== three):
+            print(">>> win 10 coins")
+            total=total+10-3
+            i=i+1
+        else:
+            print(">>> lose coin")
+            i=i+1
+            total=total-3
+    else: 
+        break
+print(f"total de coins= {total}")
+ #form ISAAC ANTCER
