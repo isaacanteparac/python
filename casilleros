@@ -1,0 +1,31 @@
+import os
+asientos=[[0,1,2,3,4,5,6,7,8,9,10],[0,1,2,3,4,5,6,7,8,9,10],[0,1,2,3,4,5,6,7,8,9,10],[0,1,2,3,4,5,6,7,8,9,10],[0,1,2,3,4,5,6,7,8,9,10],[0,1,2,3,4,5,6,7,8,9,10]]
+
+
+def persona(persona,num):  
+    os.system('cls')    
+    if persona==asientos[fila][columna]:
+        asientos[fila][columna]='ocupado'
+    if persona=='ocupado':
+        print('>>>>esta ocupado')
+    consola(num)
+
+def consola(num):
+    print("                          CAILLEROS")
+    print("")
+    for k in range (num):
+        print (f"           f{k} {asientos[k][:]}")
+        print("")
+
+ 
+while True:
+    try:
+        fila=int(input(f"ingrese la fila "))
+        columna=int(input("ingrese la columa "))
+    except:
+        print("")
+        continue
+    person=asientos[fila][columna]
+    persona(person,6)
+    
+#form ISAAC ANTCER
