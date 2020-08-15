@@ -1,0 +1,160 @@
+import os
+operador_aritmetico=[]
+inf_cont=0
+def menu():
+    print("")
+    print("   << OPERACIONES ARITMETICAS >>")
+    print("")
+    print("     1. SUMA (n+n)")
+    print("     2. RESTA (n-n)")
+    print("     3. MULTIPLICACION (n*n)")
+    print("     4. DIVICION (n/n)")
+    print("     5. POTENCIA (n^n)")
+    print("     6. COMBINACION n/(n - k)")
+    print("     7. SALIR")
+    print("")
+    
+def consola():
+    print(f"operador aritmetico {operador_aritmetico}")
+    print("ingrese <0> para terminar")
+    print("ingrese <73> para eliminar")
+
+def fin():
+    os.system('cls')
+    operador_aritmetico.remove(0)
+    print(f"operador aritmetico {operador_aritmetico}")
+    print("")
+    
+def eliminar():
+    os.system('cls')
+    operador_aritmetico.remove(73)
+    operador_aritmetico.pop()
+    print("se elimino el ultimo numero")
+
+while True:
+    menu()
+    try: 
+        opcion=int(input("Ingrese el numero de la opcion= "))
+    except:
+        os.system('cls')
+        print(" ")
+        continue
+    if opcion==1: #suma
+        while inf_cont<10:
+            operador_aritmetico_user=int(input("<<INGRESE EL NUMERO (+)>>= "))
+            os.system('cls')
+            operador_aritmetico.append(operador_aritmetico_user)
+            consola()
+
+            if operador_aritmetico_user==0:
+                fin()
+                suma=0
+                for i in operador_aritmetico:
+                    suma=(+suma + i)
+                print(f"        El resultado es: {suma}")               
+                operador_aritmetico.clear()
+                break
+            if operador_aritmetico_user==73:
+                eliminar()
+                consola()
+
+    if opcion==2: #resta
+        while inf_cont<10:
+            operador_aritmetico_user=float(input("<<INGRESE EL NUMERO (-)>>= "))
+            os.system('cls')
+            operador_aritmetico.append(operador_aritmetico_user)
+            consola()
+
+            if operador_aritmetico_user==0:
+                fin()
+                rest=0
+                for i in operador_aritmetico:
+                    rest=(-rest-(+i))
+                print(f"        El resultado es: {rest}")
+                operador_aritmetico.clear()
+                break
+            if operador_aritmetico_user==73:
+                eliminar()
+                consola()
+
+    if opcion==3: #multiplicacion
+        while inf_cont<10:
+            operador_aritmetico_user=float(input("<<INGRESE EL NUMERO (*)>>= "))
+            os.system('cls')
+            operador_aritmetico.append(operador_aritmetico_user)
+            consola()
+
+            if operador_aritmetico_user==0:
+                fin()
+                mult=1
+                for i in operador_aritmetico:
+                    mult=(mult*i)
+                print(f"        El resultado es: {mult}")
+                operador_aritmetico.clear()
+                break
+            if operador_aritmetico_user==73:
+                eliminar()
+                consola()
+
+    if opcion==4: #division 
+        while inf_cont<10:
+            operador_aritmetico_user=float(input("<<INGRESE EL NUMERO (/)>>= "))
+            os.system('cls')
+            operador_aritmetico.append(operador_aritmetico_user)
+            consola()
+
+            if operador_aritmetico_user==0:
+                fin()
+                divi=1
+                mod=1
+                divi=operador_aritmetico[0]/operador_aritmetico[1]
+                mod=operador_aritmetico[0]%operador_aritmetico[1]
+                print(f"        El residuo es {divi}")
+                print(f"        El cosiente es {mod}")
+                operador_aritmetico.clear()
+                break
+            if operador_aritmetico_user==73:
+                eliminar()
+                consola()
+
+    if opcion==5: #potencia 
+        while inf_cont<10:
+            operador_aritmetico_user=float(input("<<INGRESE EL NUMERO (^)>>= "))
+            os.system('cls')
+            operador_aritmetico.append(operador_aritmetico_user)
+            consola()
+
+            if operador_aritmetico_user==0:
+                fin()
+                pote=1
+                pote=operador_aritmetico[0]**operador_aritmetico[1]
+                print(f"        El resultado es: {pote}")
+                operador_aritmetico.clear()
+                break
+            if operador_aritmetico_user==73:
+                eliminar()
+                consola()   
+
+    if opcion==6: #combinacion
+        while inf_cont<10:
+            operador_aritmetico_user=float(input("<<INGRESE EL NUMERO (/-)>>= "))
+            os.system('cls')
+            operador_aritmetico.append(operador_aritmetico_user)
+            consola()
+
+            if operador_aritmetico_user==0:
+                fin()
+                combina=operador_aritmetico[0]/(operador_aritmetico[0]-operador_aritmetico[1])
+                print(f"        El resultado es: {combina}")
+                operador_aritmetico.clear()
+                break
+            if operador_aritmetico_user==73:
+                eliminar()
+                consola()  
+
+    if opcion==7:
+        print("")
+        print("Salio")
+        break       
+
+#form ISAAC ANTCER
