@@ -1,0 +1,147 @@
+import pyttsx3, os, webbrowser
+from antcer import aixa
+
+us = open('usuario.txt')
+bo = open ('bot.txt')
+nota = open('nota.txt','w')
+usu_bot = {}
+user_read = us.readlines()
+bo_read = bo.readlines()
+usuario_name = "ISAAC"
+engine = pyttsx3.init()
+
+def configuracion_voz():
+    voices = engine.getProperty('voices')#voice_G
+    engine.setProperty('voice', voices[0].id)
+    rate = engine.getProperty('rate')#speedvoice
+    engine.setProperty('rate',rate-50)
+    _volume = engine.getProperty('volume')#volumenvoice   
+    engine.setProperty('volume',1.0)
+
+
+
+def agregar_usu_bot():
+    for usuario, bot in zip(user_read, bo_read):
+        usuario = usuario.upper()
+        bot = bot.upper()
+        usu_bot[usuario] = bot 
+
+
+
+def inicio():
+    configuracion_voz()
+    usuario_name = "ISAAC"
+    #engine.say(f'bienvenido señor {usuario_name} ')
+    #engine.runAndWait()
+    agregar_usu_bot()
+    print()
+    yo = str(input(f"{usuario_name} >>> ")).upper()
+    for i in usu_bot:
+        if yo == usu_bot[i]:
+            print()
+            print(f"AIXA >>> {usu_bot[i]}")
+            engine.say(f'{usu_bot[i]} ')
+            engine.runAndWait()
+        #else:
+            #engine.say(f'mi lenguaje es limitado, trato de ser perfecta ')
+            #engine.runAndWait()
+        agregar_nota(yo)
+        open_apps(yo)
+        math(yo)
+        buscar_nav(yo)
+        chao(yo)
+
+
+
+def agregar_nota(yo):
+    if yo == str("AGREGAR NOTA") or yo == str("CREAR NOTA"):
+        print()
+        print("AIXA >>> QUE NOTA DESEA AGREGAR")
+        engine.say(f'QUE NOTA DESEA AGREGAR ')
+        engine.runAndWait()
+        print()
+        add_note = str(input(f"{usuario_name} >>> "))
+        nota.writelines(f"\n {add_note}")
+        termi_agreg_si_no(yo)
+
+
+
+def termi_agreg_si_no(yo):
+    print()
+    print("AIXA >>> DESEA SEGUIR AGREGANDO SI O NO")
+    engine.say(f'DESEA SEGUIR AGREGANDO SI O NO ')
+    engine.runAndWait()
+    print()
+    yo = str(input(f"{usuario_name} >>> ")).upper()
+    if yo == str("SI"):
+        agregar_nota(yo)
+    if yo == str("NO"):
+        print()
+        engine.say(f'okey')
+        engine.runAndWait()
+        print("AIXA >>> OKEY")
+        inicio()
+
+
+
+def open_apps(yo):
+    if yo == str("CALCULADORA"):
+        print()
+        print("AIXA >>> ABRIENDO CALCULADORA")
+        engine.say(f'ABRIENDO CALCULADORA ')
+        engine.runAndWait()
+        os.system('win32calc.exe')
+    if yo == str("GOOGLE"):
+        print("en proceso")
+        #os.sytem('chrome.exe')
+
+
+
+def buscar_nav(yo):
+    if yo == str("BUSCAR"):
+        print()
+        print("AIXA >>> QUE DESEA BUSCAR?")
+        engine.say(f'QUE DESEA BUSCAR ')
+        engine.runAndWait()
+        print()
+        buscar = input(f"{usuario_name} >>> ").upper()
+        navega=buscar.replace(" ","_")
+        print()
+        print(f"AIXA >>> BUSCANDO {buscar}")
+        engine.say(f'BUSCANDO {buscar} ')
+        engine.runAndWait()
+        webbrowser.open_new_tab(f"https://es.wikipedia.org/wiki/{navega}")
+
+
+
+def chao(yo):
+    if yo == str("CHAO") or yo == str("ADIOS"):
+        aixa()
+        print(" From ISAAC ANTEPARA CEREZO")
+        engine.say(f'hasta mañana {usuario_name}')
+        engine.runAndWait()
+        exit()
+
+
+
+def math(yo):
+    if yo == str("RESUELVE"):
+        print()
+        print("AIXA >>> ESCRIBA LA OPERACION MATEMATICA")
+        engine.say(f'ESCRIBA LA OPERACION MATEMATICA ')
+        engine.runAndWait()
+        print()
+        operaccion = input(f"{usuario_name} >>> ")
+        print()
+        print(f"AIXA >>> EL RESULTADO ES {operaccion}")
+        engine.say(f'EL RESULTADO ES {operaccion} ')
+        engine.runAndWait()
+
+
+
+
+
+while True:
+    inicio()
+
+#from isaac antcer
