@@ -1,14 +1,15 @@
 import pyttsx3, os, webbrowser
 from antcer import aixa
-
 us = open('usuario.txt')
 bo = open ('bot.txt')
 nota = open('nota.txt','w')
 usu_bot = {}
 user_read = us.readlines()
 bo_read = bo.readlines()
-usuario_name = "ISAAC"
 engine = pyttsx3.init()
+usuario_name = "ISAAC"
+engine.say(f'bienvenido señor {usuario_name}, que desea hacer hoy ')
+engine.runAndWait()
 
 def configuracion_voz():
     voices = engine.getProperty('voices')#voice_G
@@ -22,7 +23,9 @@ def configuracion_voz():
 
 def agregar_usu_bot():
     for usuario, bot in zip(user_read, bo_read):
+        usuario = usuario.replace('\n','')
         usuario = usuario.upper()
+        bot = bot.replace('\n',"")
         bot = bot.upper()
         usu_bot[usuario] = bot 
 
@@ -30,14 +33,12 @@ def agregar_usu_bot():
 
 def inicio():
     configuracion_voz()
-    usuario_name = "ISAAC"
-    #engine.say(f'bienvenido señor {usuario_name} ')
-    #engine.runAndWait()
-    agregar_usu_bot()
+    agregar_usu_bot()           #hacer  un array para ver que plabras son iguales mayor de 3 digitos
+    print(usu_bot)
     print()
     yo = str(input(f"{usuario_name} >>> ")).upper()
     for i in usu_bot:
-        if yo == usu_bot[i]:
+        if yo in i:
             print()
             print(f"AIXA >>> {usu_bot[i]}")
             engine.say(f'{usu_bot[i]} ')
@@ -50,7 +51,6 @@ def inicio():
         math(yo)
         buscar_nav(yo)
         chao(yo)
-
 
 
 def agregar_nota(yo):
@@ -143,5 +143,7 @@ def math(yo):
 
 while True:
     inicio()
+
+
 
 #from isaac antcer
