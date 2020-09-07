@@ -1,0 +1,183 @@
+import pyttsx3, os , webbrowser , time , random2 ,  speech_recognition as sr
+from antcer import aixa
+user = open('quest_usuario.txt')
+bo = open ('bot.txt')
+https = open('links.txt')
+dial  = open('dialogo.txt')
+dialogo_aray = []
+usuario_aray = []
+bot_aray = []
+links = []
+engine = pyttsx3.init()
+av_virtual = "AIXA"
+usuario_name = "ISAAC"
+
+
+def nombre():
+    os.system('cls')
+    global usuario_name, av_virtual
+    usuario_name = str(input("ingrese su nombre: ")).upper()
+    nombre_aixa = str(input("desea ingresar nombre al asistente virtual si o no: "))
+    if nombre_aixa == str("si"):
+        nombre = str(input("ingrese el nombre de V.A: ")).upper()
+        av_virtual = f"{nombre} AIXA"
+    if nombre_aixa == str("no"):
+        av_virtual = f"AIXA"
+    _l = input("ingrese cualquier letra para continuar... ")
+    os.system('cls')
+
+nombre()
+aixa()
+
+print(f"               {time.asctime()}")
+engine.say(f'bienvenido {usuario_name}')
+engine.say(f'soy {av_virtual} su asistente virtual ')
+engine.say(f'que desea hacer hoy ')
+engine.runAndWait()
+
+
+
+def configuracion_voz():
+    voices = engine.getProperty('voices')#voice_G
+    engine.setProperty('voice', voices[0].id)
+    rate = engine.getProperty('rate')#speedvoice
+    engine.setProperty('rate',rate-50)
+    _volume = engine.getProperty('volume')#volumenvoice   
+    engine.setProperty('volume',10.0)
+
+
+
+def crear_array():
+    for _uo in range(23):
+        user_read = user.readline()
+        user_read = user_read.replace('\n',"")
+        user_read = user_read.upper()
+        user_read = user_read.split()
+        usuario_aray.append(user_read)
+    for _bt in range(len(usuario_aray)):
+        bo_read = bo.readline()
+        bo_read = bo_read.replace('\n',"")
+        bo_read = bo_read.upper()
+        bo_read = bo_read.split()
+        bot_aray.append(bo_read)
+    for _lk in range(9):
+        https_read = https.readline()
+        https_read = https_read.replace('\n',"")
+        https_read = https_read.split()
+        links.append(https_read)
+    for _dg in range(5):
+        #saludo
+        dialogo = dial.readline()
+        dialogo = dialogo.replace('\n',"")
+        dialogo = dialogo.split()
+        dialogo_aray.append(dialogo)
+
+crear_array()
+
+def inicio():
+    configuracion_voz()
+    print()
+    yi = str(input(f"{usuario_name} >>> ")).upper()
+    dialoggo()
+    fin(yi)
+    y0 = yi.split()
+    conversar(y0[-1])
+    for j, k in zip(range(len(usuario_aray)), range(len(bot_aray))):
+        for l in range(len(usuario_aray[j])):
+            usu_ar = usuario_aray[j][l]
+            bot = bot_aray[k][:]
+            for yo in y0[:]:
+                if yo == usu_ar:
+                    bo =' '.join(bot)
+                    print()
+                    print(f"{av_virtual} >>> {bo}")
+                    engine.say(f'{bo} ')
+                    engine.runAndWait()
+                    abrir_apps(usuario_aray[j][l])
+                    navegar_web(usuario_aray[j][l], y0)
+                    j, k, l, bot = 0, 0, 0, 0                 
+
+
+
+def reconocimento_voz():
+    r = sr.Recognizer() 
+    with sr.Microphone() as source:
+        print('Habla cualquier cosa : ')
+        print()
+        audio = r.listen(source)
+        try:
+            text = r.recognize_google(audio, language= 'es-ES')
+            print('Tu dijiste: {}'.format(text))
+        except:
+            print('¡Ups! No entendí eso')
+
+
+
+def dialoggo():       
+    num1 = random2.sample(range(1,5),1)
+    num1 = num1[0]
+    if (num1 > 0) or (num1 <= 5):
+        saludo = dialogo_aray[num1] 
+        bot_aray[0] = saludo
+
+
+
+def abrir_apps(array):
+    if array == str(usuario_aray[10][0]):
+        os.system('win32calc.exe')
+    if array == str(usuario_aray[12][0]):
+        os.system('notepad.exe')
+
+
+
+def navegar_web(yo, search):
+    if yo == str(usuario_aray[9][0]):
+        buscar = " ".join(search[1:])
+        engine.say(f'{buscar}')
+        engine.runAndWait()
+        webbrowser.open_new_tab(f"{links[0][0]}{buscar}")
+    if yo == str(usuario_aray[13][0]):
+        musica = " ".join(search[2:])
+        engine.say(f'de {musica} ')
+        engine.runAndWait()
+        webbrowser.open_new_tab(f"{links[1][0]}{musica}")
+    if yo == str(usuario_aray[15][0]):
+        webbrowser.open_new_tab(f"{links[2][0]}")
+    if yo == str(usuario_aray[17][0]):
+        webbrowser.open_new_tab(f"{links[3][0]}")
+    if yo == str(usuario_aray[16][0]):
+        webbrowser.open_new_tab(f"{links[5][0]}")
+    if yo == str(usuario_aray[19][0]):
+        webbrowser.open_new_tab(f"{links[6][0]}")
+    if yo == str(usuario_aray[18][0]):
+        webbrowser.open_new_tab(f"{links[4][0]}")
+    if yo == str(usuario_aray[20][0]):
+        webbrowser.open_new_tab(f"{links[7][0]}")
+    if yo == str(usuario_aray[21][0]):
+        webbrowser.open_new_tab(f"{links[8][0]}")
+
+def conversar(array):
+    if array == str("CONVERSAR"):
+        _convers_usuario = str(input(f"{usuario_name} >>> ")).upper()
+ 
+    
+
+def fin(yo):
+    if yo == str("CHAO") or yo == str("NADA"):
+        os.system('cls')
+        aixa()
+        print("            AIXA jueves 6/agost/20 1:30am")
+        print()
+        print(" From ISAAC ANTEPARA CEREZO")
+        print()
+        engine.say(f'hasta mañana {usuario_name}')
+        engine.runAndWait()
+        exit()
+
+
+
+
+
+while True:
+    inicio()
+
