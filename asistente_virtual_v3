@@ -1,4 +1,4 @@
-import pyttsx3, os , webbrowser , time , random2 ,  speech_recognition as sr
+import pyttsx3, os , webbrowser , time , random2
 from antcer import aixa
 user = open('quest_usuario.txt')
 bo = open ('bot.txt')
