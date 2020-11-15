@@ -33,3 +33,37 @@ def ant_code():
     print("")
     print("")
     exit
+    
+    
+    def aixa():
+    print()
+    print("                              AA      IIII  XX      XX       AA")
+    print("                            AA AA      II     XX  XX       AA AA")
+    print("                           AA   AA     II       XX        AA   AA")
+    print("                          AA     AA    II     XX  XX     AA     AA")
+    print("                         AA       AA  IIII  XX      XX  AA       AA")
+    print()
+
+
+def isa2c():
+    print()
+    print("######")
+    print("  ##                       ####")
+    print("  ##                         #    ")
+    print("  ##    ########   ########  ####  #########")
+    print("  ##    ##        ##      ##        ##")
+    print("  ##    ########  ##########        ##")
+    print("  ##          ##  ##      ##        ##")
+    print("######  ########  ##      ##        #########")
+    print()
+    time.sleep(1)
+
+def xuduosofy():
+    print()
+    print("##       ##  ##    ##  ####     ##    ##  ########  ########  ########  ########  ########")
+    print("  ##   ##    ##    ##  ## ###   ##    ##  ###  ###  ##        ###  ###  ##           ##")
+    print("   ## ##     ##    ##  ##  ###  ##    ##  ###  ###  ########  ###  ###  #####        ##")
+    print("  ##   ##    ##    ##  ## ###   ##    ##  ###  ###        ##  ###  ###  ##           ##")
+    print("##       ##  ########  ####     ########  ########  ########  ########  ##           ##")
+    print()
+    time.sleep(1)
